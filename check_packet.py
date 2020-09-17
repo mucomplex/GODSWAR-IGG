@@ -2,11 +2,14 @@ import os
 import sys
 from god_crypt import *
 
-login_packet = 'ac9abd264d950645788c9a8580f2a45620da1c46608264c6007aecb6c0b26456e05afca6d55546c7718d5ed7361001a7d22f7fe541f04232b4c3140476549d2f182adfc720e2e4a6f0088106b0df90150dee5a6bd444c9f3307a6c364032e456605a7c2660622426c03aec360072e416609a1c0620c2248680fa2cb6c0b2a496209abc2620e26426a01492b6'
-server_packet = '269abf2621e25426589debd3ed9bca3f20e6f4a202bee0236246edb6c0b260b382663dfca16220432286b1b300726596e61a138620c2140698dd60532f32ca7f2026544242de6043a206ad3680f2a0b342e6dd1ca102e0236246b1334032e656665a732660621426d81dba5f72158b1660a6f4e242fea063e2c62db6c0b2a07342a67d7c61e260c3228671b380f2a75626da1346608254c6185da0dfa2c00556e0661442825ea04322866db6007260738226dddc61c220e3e2c6f1334032a016261ab3a620e2d4a6d81dfc5ff391c12520e6f4a2823e602362466d364032e0b30266bd7c216220c3a20631330072e116669a130620c2148698dd6dc4a9d7d7be6edfeb0f20dee0c32286adb680f2a0b342e6dd1c21826023624631b3c0b26257e65af3a6e162'
-data = raw_input("Your data here:")
-data = data.decode('hex') 
+data = input("Your data here:")
+data = bytes.fromhex(data) 
 decrypt = god_decrypt()
+print("packet size: %i" % len(data)) 
 data = decrypt.run(bytearray(data))
 print(data)
-print(binascii.hexlify(data))
+new_data = binascii.hexlify(data)
+print(new_data)
+
+for i in range(0,len(new_data),2):
+    print("0x"+ new_data[i:i+2].decode('UTF-8') +",",end='')
